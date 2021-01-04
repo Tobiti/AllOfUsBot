@@ -261,12 +261,7 @@ namespace XtraCube.Plugins.AllOfUs.Handlers
                                         await e.Game.SyncSettingsAsync();
                                         await SendMessage(e.PlayerControl, "Map has been set to The Skeld!");
                                         break;
-
                                     case "mira":
-                                        e.Game.Options.Map = (MapTypes)(byte)MapTypes.MiraHQ;
-                                        await e.Game.SyncSettingsAsync();
-                                        await SendMessage(e.PlayerControl, "Map has been set to MiraHQ!");
-                                        break;
                                     case "mirahq":
                                         e.Game.Options.Map = (MapTypes)(byte)MapTypes.MiraHQ;
                                         await e.Game.SyncSettingsAsync();
