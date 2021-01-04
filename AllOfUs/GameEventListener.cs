@@ -17,7 +17,7 @@ namespace XtraCube.Plugins.AllOfUs.Handlers
         {
             string name = player.PlayerInfo.PlayerName;
             byte color = player.PlayerInfo.ColorId;
-            await player.SetNameAsync("[FF0000FF]All Of Us Bot | Public");
+            await player.SetNameAsync("[FF0000FF] Tobiti`s Bot | Public");
             await player.SetColorAsync((byte)0);
             await player.SendChatAsync(message);
             await player.SetNameAsync(name);
@@ -37,7 +37,6 @@ namespace XtraCube.Plugins.AllOfUs.Handlers
             {
                 await Task.Delay(1000);
                 await SendMessage(e.PlayerControl, "Welcome to the server!");
-                await SendMessage(e.PlayerControl, "This server is powered by All of Us Bot, an Impostor plugin designed to be used with All of Us Mod, a 100 Player Mod for Among Us!");
                 await SendMessage(e.PlayerControl, "Type /help for a list of all the commands!");
             }
 
@@ -69,7 +68,7 @@ namespace XtraCube.Plugins.AllOfUs.Handlers
                     case "/help":
                         if (e.ClientPlayer.IsHost)
                         {
-                            await SendMessage(e.PlayerControl, "Commands: /map, /name, /color, /playerlimit, /implimit, /help");
+                            await SendMessage(e.PlayerControl, "Commands: /map, /name, /color, /playerlimit, /implimit, /speed, /help");
                             await SendMessage(e.PlayerControl, "Type /<command name> to learn how to use it");
                         }
                         else
@@ -134,6 +133,40 @@ namespace XtraCube.Plugins.AllOfUs.Handlers
                         else if (args.Length == 1)
                         {
                             await SendMessage(e.PlayerControl, "/name {name}\n Change your name!");
+                        }
+                        break;
+                    case "/speed":
+                        if (e.ClientPlayer.IsHost)
+                        {
+                            if (args.Length > 1)
+                            {
+                                bool tryLimit = float.TryParse(args[1], out float newSpeed);
+                                if (tryLimit)
+                                {
+                                    if (newSpeed > 0)
+                                    {
+                                        e.Game.Options.PlayerSpeedMod = newSpeed;
+                                        await SendMessage(e.PlayerControl, $"Speed has been set to {args[1]}!");
+                                        await e.Game.SyncSettingsAsync();
+                                    }
+                                    else
+                                    {
+                                        await SendMessage(e.PlayerControl, "[FF0000FF]Error: The speed needs to be greater 0!");
+                                    }
+                                }
+                                else
+                                {
+                                    await SendMessage(e.PlayerControl, "[FF0000FF]Error: Please enter a number! If you did enter a number, then there was an error!");
+                                }
+                            }
+                            if (args.Length == 1)
+                            {
+                                await SendMessage(e.PlayerControl, "/implimit {amount}\nSet the maximum impostor count. Max is 63, minimum is 1");
+                            }
+                        }
+                        else
+                        {
+                            await SendMessage(e.PlayerControl, "[FF0000FF] You can't use that command!");
                         }
                         break;
 

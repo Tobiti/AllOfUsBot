@@ -10,7 +10,7 @@ namespace XtraCube.Plugins.AllofUs
         package: "gg.xtracube.allofus",
         name: "AllOfUsBot",
         author: "XtraCube",
-        version: "2.1.0")]
+        version: "2.1.1")]
     public class AllOfUsPlugin : PluginBase
     {
         private readonly ILogger<AllOfUsPlugin> _logger; 
